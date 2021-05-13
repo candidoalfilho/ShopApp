@@ -67,10 +67,11 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> addProduct(Product product) {
+  Future<void> addProduct(Product product) async {
     final url = Uri.parse(
         'https://my-first-project-49842-default-rtdb.firebaseio.com/products.json');
-    return http
+    try {
+    final response = await http
         .post(
       url,
       body: json.encode(
@@ -82,10 +83,8 @@ class Products with ChangeNotifier {
           'isFavorite': product.isFavorite,
         },
       ),
-    )
-        .then((response) {
-      print(json.decode(response.body));
-      final newProduct = Product(
+    );
+    final newProduct = Product(
         title: product.title,
         description: product.description,
         price: product.price,
@@ -94,8 +93,14 @@ class Products with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    });
-  }
+    } 
+      catch (error) {
+        print(error);
+      throw error;
+      }
+      
+    }
+  
 
   void updateProduct(String id, Product newProduct) {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
