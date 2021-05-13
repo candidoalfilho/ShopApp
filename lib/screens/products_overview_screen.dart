@@ -34,11 +34,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void didChangeDependencies() {
-    if(_isInit){
+    if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context).fetchAndSetProducts().then((_){
+      Provider.of<Products>(context).fetchAndSetProducts().then((_) {
         _isLoading = false;
       });
     }
@@ -86,7 +86,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: _isLoading ? Center(child: CircularProgressIndicator(),) : ProductsGrid(_showOnlyFavorites),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavorites),
     );
   }
 }
