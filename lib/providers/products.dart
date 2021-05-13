@@ -67,24 +67,35 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
+  Future<void> fetchAndSetProducts() async {
+    final url = Uri.parse(
+      'https://my-first-project-49842-default-rtdb.firebaseio.com/products.json',
+    );
+    try {
+      final response = await http.get(url);
+      print(json.decode(response.body));
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
         'https://my-first-project-49842-default-rtdb.firebaseio.com/products.json');
     try {
-    final response = await http
-        .post(
-      url,
-      body: json.encode(
-        {
-          'title': product.title,
-          'description': product.description,
-          'imageUrl': product.imageUrl,
-          'price': product.price,
-          'isFavorite': product.isFavorite,
-        },
-      ),
-    );
-    final newProduct = Product(
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'title': product.title,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+            'price': product.price,
+            'isFavorite': product.isFavorite,
+          },
+        ),
+      );
+      final newProduct = Product(
         title: product.title,
         description: product.description,
         price: product.price,
@@ -93,14 +104,11 @@ class Products with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    } 
-      catch (error) {
-        print(error);
+    } catch (error) {
+      print(error);
       throw error;
-      }
-      
     }
-  
+  }
 
   void updateProduct(String id, Product newProduct) {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
