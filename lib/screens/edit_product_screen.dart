@@ -120,7 +120,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
-                  child: Text('Okay'))
+                  child: Text('Okay'),),
             ],
           ),
         );
@@ -135,7 +135,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
   }
 
   @override
