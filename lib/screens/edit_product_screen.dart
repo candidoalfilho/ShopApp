@@ -100,10 +100,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _editedProduct.id,
         _editedProduct,
       );
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pop();
     } else {
       try {
         await Provider.of<Products>(context, listen: false).addProduct(
@@ -117,10 +113,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
             content: Text('Something went wrong.'),
             actions: [
               TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text('Okay'),),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('Okay'),
+              ),
             ],
           ),
         );
@@ -135,7 +132,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = false;
     });
-    // Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   @override
